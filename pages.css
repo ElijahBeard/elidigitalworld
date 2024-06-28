@@ -1,0 +1,21 @@
+body{
+    background-image:url('/src/men.jpg');
+    font-family:"pixel";
+    font-size:20px;
+    margin:30px;
+}
+a{
+    color:mintcream;
+}
+@font-face {
+    font-family: 'pixel';
+      src: url('./pixelpoiiz.ttf'); /* IE9 Compat Modes */
+      font-weight: 700;
+      font-style: normal;
+   }
+   @font-face {
+       font-family: 'fancy';
+         src: url('./Zapfino.ttf'); /* IE9 Compat Modes */
+         font-weight: 700;
+         font-style: normal;
+      }
