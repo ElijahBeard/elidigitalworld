@@ -10,41 +10,94 @@
       font-weight: 700;
       font-style: normal;
    }
+html{
+    background: rgb(39,255,0);
+    background: radial-gradient(circle, rgba(39,255,0,1) 0%, rgba(158,203,151,1) 50%, rgb(98, 255, 0) 100%);
+}
 body{
+    background-color: white;
     margin:20px;
     display:flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    font-family:"fancy";
+    font-family:pixel;
     overflow: hidden;
-}
-#itemList{
-    overflow-y:auto;
-    display:flex;
-    flex-direction: column;
-}
-#x{
-    background-color: transparent;
-    border-style:none;
-}
-ul {
-    list-style: none;
-}
-.entry{
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    height:80vh;
     border:5px;
     border-color:rgb(118, 192, 91);
     border-style:dotted;
 }
+#item_list{
+    border:2px;
+    padding-top:5px;
+    border-color:rgb(118, 192, 91);
+    border-style:solid;
+    background-color: rgba(182, 236, 177, 0.445);
+    overflow-y:auto;
+    display:flex;
+    flex-direction: column;
+    height:75vh;
+    width:90%;
+    overflow-x:hidden;
+}
+#item_list li{
+    display:flex;
+    justify-content: space-between;
+    width:100%;
+    margin-left:12px;
+}
+h1{
+    margin-bottom:0px;
+}
+#x{
+    background-color: transparent;
+    border-style:none;
+    margin-right:20px;
+}
+ul {
+    list-style: none;
+    padding:0;
+}
+li{
+    margin:0;
+    color:black;
+    font-size:20px;
+}
+.entry{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border:0px;
+    border-color:rgb(118, 192, 91);
+    border-style:dotted;
+    margin-bottom:10px;
+}
 .entry input{
-    width:200px;
-    height:100px;
+    width:50vw;
+    height: 50px;
 }
 .entry button{
-    width:205px;
-    height:50px
+    width:60px;
+    height:55px
+}
+.colors {
+    display:flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    margin:5px;
+}
+.colors button{
+
+    width:50px;
+    height:30px;
+    margin:0;
+    margin-left:3px;
+    margin-right:3px;
+    border-style:none;
+    cursor: pointer;
+}
+.colors button:active{
+    border-style:dotted;
 }

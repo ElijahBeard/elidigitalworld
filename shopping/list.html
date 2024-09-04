@@ -5,14 +5,24 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
   <link rel="stylesheet" href="./shoppinglist.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="icon" type="image/x-icon" href="./fvc.png">
 </head>
 <body>
-  <h1>🍏🥦🥖shoppinglist v1</h1>
-  <ul id="itemList"></ul>
+  <h1>🍏 shoppinglist 🥖</h1>
+  <ul id="item_list"></ul>
   <div class="entry">
-    <input type="text" id="newItem" placeholder="Enter item">
-    <button id="addItem">Add Item</button>
+    <button onclick="sort()">Sort</button>
+    <input type="text" id="entry" placeholder="Enter item">
+    <button onclick="add_item()" id="addItem">Add Item</button>
   </div>
-  <script src="script.js"></script>
+  <div class="colors">
+    <button class="color_button" style="background-color:red" onclick="set_color('red')"></button>
+    <button class="color_button" style="background-color:purple" onclick="set_color('purple')"></button>
+    <button class="color_button" style="background-color:blue" onclick="set_color('blue')"></button>
+    <button class="color_button" style="background-color:green" onclick="set_color('green')"></button>
+    <button class="color_button" style="background-color:black" onclick="set_color('black')"></button>
+  </div>
+  <script src="list.js"></script>
 </body>
 </html>
