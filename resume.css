@@ -1,6 +1,13 @@
+@font-face {
+    font-family: 'mono';
+      src: url('./SpaceMono-Regular.ttf'); /* IE9 Compat Modes */
+      font-weight: 100;
+      font-style: normal;
+}
+
 body{
     background-color: none;
-    font-family: monospace;
+    font-family: 'mono';
     margin:0;
     height:100vh;
     width:100vw;
@@ -15,7 +22,7 @@ body ul{
     display:flex;
     flex-direction: column;
     overflow-y:auto;
-    background-color: gray;
+    background-color: rgb(250, 251, 250);
     height:100vh;
     padding:20px;
 }
@@ -24,8 +31,8 @@ body ul{
     .name_contact{
         display:flex;
         justify-content: space-between;
-
-        background-color:rgb(208, 179, 179);
+        text-decoration: none;
+        background-color: none;
         height:84px;
     }
 
@@ -33,7 +40,14 @@ body ul{
         display: flex;
         flex-direction: column;
         justify-content:baseline;
-        margin:0;
+        margin:0px;
+    }
+    .name a, a:visited{
+        text-decoration: none;
+        color:black;
+    }
+    .name a:hover{
+        color:rgb(0, 0, 255);
     }
     .name h1{
         font-size:22pt;
@@ -55,7 +69,7 @@ body ul{
         padding:0;
     }
     .links i{
-        font-size:20px;
+        font-size:25px;
         color:black;
         margin:0;
         padding:0;
@@ -64,27 +78,77 @@ body ul{
     i:hover{
         color:blue;
     }
-
-    .contact, ul,p{
+    .contact, p{
         text-align: right;
-        padding:0;
-        margin-top:0;
+        text-wrap: wrap;
+        white-space: normal;
+        margin:0;
+        padding:1px;
     }
+    .contact a, a:visited{
+        color:black;
+    }
+    .contact a:hover{
+        color:rgb(0, 0, 255);
+    }
+    
 
 /*resume body / l / r*/
 .resume_body{
     display:flex;
     justify-content: space-between;
-    background-color: rgb(155, 140, 121);
+    background-color: none;
     height:100vh;
+    margin-top:20px;
+    margin-bottom:20px;
 }
 
+/*Job*/
 .left_main{
-    background-color: rgb(159, 91, 91);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    background-color: none;
 }
+.job_container{
+    opacity:0;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: none;
+    width:43vw;
+}
+.job_container_job{
+    margin:2px;
+    background-color: rgba(218, 216, 216, 0.468);
+    border-radius: 5px;
+    padding:2px;
+    color:rgb(0, 0, 0);
+    font-size:20px;
+}
+.job_title{
+    text-align: left;
+    margin:0;
+    padding:0;
+    margin-left:10px;
+}
+.job_description{
+    margin:5px;
+    padding:10px;
+}
+
+/*Skills Other Information*/
 .right_main{
-    background-color: rgb(159, 91, 91);
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: none;
 }
+.skill{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
 
 /*Portfolio Section*/
     #pull_tab {
@@ -92,10 +156,10 @@ body ul{
         color: white;
         width:100vw;
         height:100vh;
-        background-color: tan;
+        background-color: rgba(255, 147, 7, 0.394);
 
         position:absolute;
-        top:93vh;
+        top:10vh;
 
         cursor:grab;
 
@@ -105,7 +169,7 @@ body ul{
     #tab_base{
         background-color: black;
         margin:0;
-        width:60px;
+        width:70px;
         text-align: center;
         padding:2px;
         align-self:center;
@@ -119,3 +183,10 @@ body ul{
         font-size:.0px;
         align-self:center;
     }
+
+@media print {
+    html{
+        height:auto;
+        background-color: black;
+    }
+} 
