@@ -1,17 +1,18 @@
 grabbed = false;
-window.onbeforeunload = window.scrollTo(0, 0);
 
 function mousemove(event){
+    window.onbeforeunload = window.scrollTo(0, 0);
     let tab = document.getElementById("pull_tab");
+    let tab_base = document.getElementById("tab_base");
 
     const x = event.clientX;
     const y = event.clientY;
     scroll_position = y/document.body.scrollHeight * 100;
 
-    if(grabbed && scroll_position < 96 && is_in_bounding_box(x,y)){
+    if(grabbed && scroll_position < 199 && is_in_bounding_box(x,y)){
         tab.style.top = `${y}px`;
-        tab.style.cursor = "grabbing";
-    } else {tab.style.cursor = "grab"}
+        tab_base.style.cursor = "grabbing";
+    } else {tab_base.style.cursor = "grab"}
 }
 
 function is_in_bounding_box(x,y){
@@ -22,7 +23,7 @@ function is_in_bounding_box(x,y){
     tab_bottom = tab.getBoundingClientRect().bottom.toFixed(0);
     scroll_position = y/document.body.scrollHeight * 100;
 
-    if(y > 100 && scroll_position < 88 && x_p > 40 && x_p < 60 && (y > tab_top - 25 && y < tab_bottom + 10) ){
+    if(y > 40 && scroll_position < 88 && x_p > 40 && x_p < 60 && (y > tab_top - 25 && y < tab_bottom + 10) ){
         return true;
     }
 }

@@ -95,6 +95,7 @@ body ul{
 
 /*resume body / l / r*/
 .resume_body{
+    filter: drop-shadow(rgb(230, 230, 230) 1rem 1rem 10px);
     display:flex;
     justify-content: space-between;
     background-color: none;
@@ -156,17 +157,15 @@ body ul{
         color: white;
         width:100vw;
         height:100vh;
-        background-color: rgba(255, 147, 7, 0.394);
-
         position:absolute;
-        top:10vh;
-
-        cursor:grab;
-
+        top:9vh;
         display:flex;
         flex-direction: column;
     }
     #tab_base{
+        cursor:grab;
+        z-index: 2;
+        position:relative;
         background-color: black;
         margin:0;
         width:70px;
@@ -175,6 +174,8 @@ body ul{
         align-self:center;
     }
     #string{
+        position:absolute;
+        z-index: 1;
         background-color: black;
         height:100%;
         margin:0;
@@ -182,6 +183,40 @@ body ul{
         color:black;
         font-size:.0px;
         align-self:center;
+    }
+    .portfolio_content{
+        display:flex;
+        flex-direction: row;
+        margin-top:30px;
+        overflow-y:auto;
+        background-color: rgb(240, 240, 240);
+        color:black;
+    }
+    .portfolio_left{
+        display:flex;
+        flex-direction: column;
+        width:50vw;
+    }
+    .portfolio_right{
+        display:flex;
+        flex-direction: column;
+        width:50vw;
+    }
+    .portfolio_entry{
+        display:flex;
+        flex-direction: column;
+        margin:15px;
+    }
+    .portfolio_content img,video{
+        width:300px;
+    }
+    .portfolio_title{
+        text-align: left;
+        font-weight:500px;
+        font-size: 25px;
+    }
+    .portfolio_description{
+        text-align: left;
     }
 
 @media print {

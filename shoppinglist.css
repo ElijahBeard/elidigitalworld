@@ -10,6 +10,12 @@
       font-weight: 700;
       font-style: normal;
    }
+@font-face {
+font-family: 'writing';
+    src: url('/files/BeautyDemo.ttf'); /* IE9 Compat Modes */
+    font-weight: 700;
+    font-style: normal;
+}
 html{
     background: rgb(39,255,0);
     background: radial-gradient(circle, rgba(39,255,0,1) 0%, rgba(158,203,151,1) 50%, rgb(98, 255, 0) 100%);
@@ -21,7 +27,7 @@ body{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    font-family:pixel;
+    font-family:'writing';
     overflow: hidden;
     height:80vh;
     border:5px;
@@ -60,9 +66,10 @@ ul {
     padding:0;
 }
 li{
+    font-family:monospace;
     margin:0;
     color:black;
-    font-size:20px;
+    font-size:15px;
 }
 .entry{
     display:flex;
