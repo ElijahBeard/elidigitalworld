@@ -2,6 +2,7 @@
     import '../app.css';
     import { onMount } from 'svelte';
     import { gsap } from 'gsap';
+    import { supabase } from '$lib/supabase';
 
     // == marquee ==
     let marquee: HTMLDivElement;
@@ -49,20 +50,34 @@
         color = new_color;
         return new_color;
     }
-    async function saveCanvas() {
-      canvas.toBlob(async (blob) => {
-        if (!blob) {console.log("i didnt work im a blob");return;}
-        const formData = new FormData();
-        formData.append('drawing', blob, 'drawing.png');
-  
-        const response = await fetch('/api/save', {
-          method: 'POST',
-          body: formData
+    async function saveToSupabase(blob: Blob) {
+        const filename = `drawing-${Date.now()}.png`;
+
+        const { data, error } = await supabase.storage
+        .from('drawings')
+        .upload(filename, blob, {
+            cacheControl: '3600',
+            upsert: false,
+            contentType: 'image/png'
         });
-  
-        const result = await response.json();
-        alert(`Saved as: ${result.filename}`);
-      }, 'image/png');
+
+        if (error) {
+        console.error('Supabase upload error:', error.message, error);
+        alert(`Upload failed: ${error.message}`);
+        return;
+        }
+
+        const url = supabase.storage
+        .from('drawings')
+        .getPublicUrl(filename).data.publicUrl;
+
+        alert(`Drawing saved to: ${url}`);
+    }
+    async function saveCanvas() {
+        canvas.toBlob(async (blob) => {
+            if (!blob) return;
+            await saveToSupabase(blob);
+        });
     }
     function clearCanvas() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
