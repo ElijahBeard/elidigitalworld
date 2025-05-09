@@ -13,7 +13,7 @@ export const POST: RequestHandler = async ({ request }) => {
   const arrayBuffer = await file.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
   const filename = `drawing-${Date.now()}.png`;
-  const filepath = path.resolve('static/uploads', filename);
+  const filepath = path.resolve('tmp/', filename); // CHANGE THIS
 
   await writeFile(filepath, buffer);
   return json({ filename });
