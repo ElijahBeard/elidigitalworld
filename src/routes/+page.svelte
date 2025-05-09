@@ -141,7 +141,7 @@
     }
     @font-face {
         font-family: "Block";
-        src: url("pictochat.ttf") format("truetype");
+        src: url("/pictochat.ttf") format("truetype");
         font-display: swap;
     }
     .marquee_content {

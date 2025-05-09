@@ -11,7 +11,7 @@
     header {
         margin:0px;
         padding:20px;
-        background-image: url("header_notext.bmp");
+        background-image: url("/header_notext.bmp");
         background-size: cover;
         background-position: 100vh;
         transform: scaleY(-1);
@@ -27,7 +27,7 @@
     }
     @font-face {
         font-family: "Block";
-        src: url("block.ttf") format("truetype");
+        src: url("/block.ttf") format("truetype");
         font-display: swap;
     }
 
