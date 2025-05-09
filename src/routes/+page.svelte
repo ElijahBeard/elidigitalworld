@@ -74,7 +74,7 @@
 
 <!-- == html content == -->
 <header>
-    <img id="header_img" width=100% src="logo.png" alt="">
+    <img id="header_img" width=100% src="/logo.png" alt="">
 </header>
 <div class="mqc">
     <div class="mqt" bind:this={marquee}>
@@ -118,13 +118,12 @@
     header {
         margin:0px;
         padding:20px;
-        background-image: url("header_notext.bmp");
+        background-image: url("/header_notext.bmp");
         background-size: cover;
         background-position: 100vh;
         filter: invert();
 
     }
-
     /* == marquee == */
     .mqc {
         display:flex;
