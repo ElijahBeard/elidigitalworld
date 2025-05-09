@@ -168,10 +168,6 @@
         overflow:hidden;
         padding:0px;
     }
-    #gear {
-        position:absolute;
-        z-index: -5;
-    }
     .controls{
         position:relative;
         top:-50px;
