@@ -3,6 +3,7 @@
     import { onMount } from 'svelte';
     import { gsap } from 'gsap';
     import { supabase } from '$lib/supabase';
+    //import { pathToFileURL } from 'url';
 
     // == marquee ==
     let marquee: HTMLDivElement;
@@ -21,7 +22,7 @@
         });
     });
 
-    // == canvas == 
+    // == CANVAS START == 
     let canvas: HTMLCanvasElement;
     let ctx: CanvasRenderingContext2D;
     let ln = 2;
@@ -85,48 +86,91 @@
     $: if (canvas) {
       ctx = canvas.getContext('2d')!;
     }
+    // == CANVAS END == //
+
+    // == TILE START == //
+    let tiles1 = ['/split/tile_0.png','split/tile_1.png','split/tile_2.png']
+    let tiles2 = ['/split/tile_3.png','split/tile_4.png','split/tile_5.png']
+    let tiles3 = ['/split/tile_6.png','split/tile_7.png','split/tile_8.png']
+    import interact from 'interactjs';
+    
+    onMount(() => {
+        interact('.draggable_tile').draggable({
+            listeners: {
+                move(event) {
+                    const target = event.target
+                    const x = (parseFloat(target.getAttribute('data-x') || '0')) + event.dx;
+                    const y = (parseFloat(target.getAttribute('data-y') || '0')) + event.dy;
+                    target.style.transform = `translate(${x}px, ${y}px)`;
+                    target.setAttribute('data-x',x.toString());
+                    target.setAttribute('data-y',y.toString());
+                }
+            }
+        })
+    });
 </script>
 
 <!-- == html content == -->
-<header>
-    <img id="header_img" width=100% src="/logo.png" alt="">
-</header>
-<div class="mqc">
-    <div class="mqt" bind:this={marquee}>
-        <span class="marquee_content">
-            you are now on elidigitalworld.xyz -- superstarworldwide ## @elicbeard IG -- @centralboatclub soundcloud LLC -- draw on the pallete! share your drawings with the save button -- check out the compendium to see digital world creations -- (°ロ°) ! -- share your superstar creations on the internet -- XYZ -- what's your favorite flavor of icecream -- have any suggestions ? send them to my email elijahbeard24@gmail.com -- github : ElijahBeard check out my latest projects -- i dont have any updates rn -- no new events coming up -- check out my resume if you want to hire me -- this is elidigitalworld.xyz ... bitch! -- hi -- :] -- draw a pic! --
-        </span>
-        <span class="marquee_content">
-            you are now on elidigitalworld.xyz -- superstarworldwide ## @elicbeard IG -- @centralboatclub soundcloud LLC -- draw on the pallete! share your drawings with the save button -- check out the compendium to see digital world creations -- (°ロ°) ! -- share your superstar creations on the internet -- XYZ -- what's your favorite flavor of icecream -- have any suggestions ? send them to my email elijahbeard24@gmail.com -- github : ElijahBeard check out my latest projects -- i dont have any updates rn -- no new events coming up -- check out my resume if you want to hire me -- this is elidigitalworld.xyz ... bitch! -- hi -- :] -- draw a pic! --
-        </span>
-    </div>
-</div>
-<div class="main">
-    <div class="draw_zone">
-        <canvas
-            bind:this={canvas}
-            width={600}
-            height={250}
-            on:mousedown={startDrawing}
-            on:mouseup={stopDrawing}
-            style="border:2px solid black; touch-action: none;background-color:white;">
-        </canvas>
-        
-        <br />
-        <div class="controls">
-            <button on:click={saveCanvas}><i class="fa-solid fa-floppy-disk"></i></button>
-            <button on:click={clearCanvas}>Clear</button>
-            <button on:click={stroke_incr}>+</button>
-            <button on:click={stroke_decr}>-</button>
-            <button style="background-color:black;border-style:solid;border-color:black;color:black" on:click={() => set_color("black")}> -</button>
-            <button style="background-color:white;border-style:solid;color:white;" on:click={() => set_color("white")}> -</button>
-            <button style="background-color:cyan;border-style:solid;border-color:cyan;color:cyan" on:click={() => set_color("cyan")}> -</button>
-            <button style="background-color:magenta;border-style:solid;border-color:magenta;color:magenta" on:click={() => set_color("magenta")}> -</button>
-            <button style="background-color:yellow;border-style:solid;border-color:yellow;color:yellow" on:click={() => set_color("yellow")}> -</button>
-            <button style="background-color:gray;border-style:solid;border-color:gray;color:gray" on:click={() => set_color("gray")}> -</button>
+<main>
+    <header>
+        <img id="header_img" width=100% src="/logo.png" alt="">
+    </header>
+    <div class="mqc">
+        <div class="mqt" bind:this={marquee}>
+            <span class="marquee_content">
+                you are now on elidigitalworld.xyz -- superstarworldwide ## @elicbeard IG -- @centralboatclub soundcloud LLC -- draw on the pallete! share your drawings with the save button -- check out the compendium to see digital world creations -- (°ロ°) ! -- share your superstar creations on the internet -- XYZ -- what's your favorite flavor of icecream -- have any suggestions ? send them to my email elijahbeard24@gmail.com -- github : ElijahBeard check out my latest projects -- i dont have any updates rn -- no new events coming up -- check out my resume if you want to hire me -- this is elidigitalworld.xyz ... bitch! -- hi -- :] -- draw a pic! --
+            </span>
+            <span class="marquee_content">
+                you are now on elidigitalworld.xyz -- superstarworldwide ## @elicbeard IG -- @centralboatclub soundcloud LLC -- draw on the pallete! share your drawings with the save button -- check out the compendium to see digital world creations -- (°ロ°) ! -- share your superstar creations on the internet -- XYZ -- what's your favorite flavor of icecream -- have any suggestions ? send them to my email elijahbeard24@gmail.com -- github : ElijahBeard check out my latest projects -- i dont have any updates rn -- no new events coming up -- check out my resume if you want to hire me -- this is elidigitalworld.xyz ... bitch! -- hi -- :] -- draw a pic! --
+            </span>
         </div>
     </div>
-</div>
+    <div class="main">
+        <div class="draw_zone">
+            <canvas
+                bind:this={canvas}
+                width={600}
+                height={250}
+                on:mousedown={startDrawing}
+                on:mouseup={stopDrawing}
+                style="border:2px solid black; touch-action: none;background-color:white;">
+            </canvas>
+            
+            <br />
+            <div class="controls">
+                <button on:click={saveCanvas}><i class="fa-solid fa-floppy-disk"></i></button>
+                <button on:click={clearCanvas}>Clear</button>
+                <button on:click={stroke_incr}>+</button>
+                <button on:click={stroke_decr}>-</button>
+                <button style="background-color:black;border-style:solid;border-color:black;color:black" on:click={() => set_color("black")}> -</button>
+                <button style="background-color:white;border-style:solid;color:white;" on:click={() => set_color("white")}> -</button>
+                <button style="background-color:cyan;border-style:solid;border-color:cyan;color:cyan" on:click={() => set_color("cyan")}> -</button>
+                <button style="background-color:magenta;border-style:solid;border-color:magenta;color:magenta" on:click={() => set_color("magenta")}> -</button>
+                <button style="background-color:yellow;border-style:solid;border-color:yellow;color:yellow" on:click={() => set_color("yellow")}> -</button>
+                <button style="background-color:gray;border-style:solid;border-color:gray;color:gray" on:click={() => set_color("gray")}> -</button>
+            </div>
+        </div>
+        <div class="mosaic">
+            <div class="tile">
+                {#each tiles1 as isrc}
+                <img class="draggable_tile" src={isrc} alt="tile">
+                {/each}
+            </div>
+
+            <div class="tile">
+                {#each tiles2 as isrc}
+                <img class="draggable_tile" src={isrc} alt="tile">
+                {/each}
+            </div>
+
+            <div class="tile">
+                {#each tiles3 as isrc}
+                <img class="draggable_tile" src={isrc} alt="tile">
+                {/each}
+            </div>
+        </div>
+    </div>
+</main>
 
 <style>
     /* == header == */
@@ -169,6 +213,7 @@
     /* == MAIN CONTENT CONTAINER == */
     .main{
         display:flex;
+        flex-direction: column;
         padding:10px;
         height:100vh;
         background-color:ghostwhite;
@@ -191,6 +236,21 @@
         background: white;
         border-style:solid;
     }
+
     /* == END MAIN CONTENT CONTAINER == */
+    .mosaic{
+        display:flex;
+        flex-direction: column;
+    }
+    .tile {
+        display:flex;
+        flex-direction: row;
+        filter: drop-shadow(1px 1px 1px #000000);
+    }
+    .mosaic img {
+        width:50px;
+        margin:0;
+        padding:0;
+    }
 </style>
 

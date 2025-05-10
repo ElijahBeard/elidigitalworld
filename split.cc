@@ -21,6 +21,7 @@ int main(int argc, const char* argv[]) {
     int rows = 3, cols = 3;
     int tilew = image.cols / cols;
     int tileh = image.rows / rows;
+    int tile_no = 0;
     
     for (int r = 0; r < rows; ++r) {
         for (int c = 0; c < cols; ++c) {
@@ -32,9 +33,9 @@ int main(int argc, const char* argv[]) {
 
             cv::Rect tile_region(x,y,w,h);
             cv::Mat tile = image(tile_region);
-            
-            std::string filename = directory + "tile_" + std::to_string(r) + "_" + std::to_string(c) + ".png";
+            std::string filename = directory + "tile_" + std::to_string(tile_no) + ".png";
             cv::imwrite(filename,tile);
+            ++tile_no;
         }
     }
     printf("Image Divided Sucessfully\n");
