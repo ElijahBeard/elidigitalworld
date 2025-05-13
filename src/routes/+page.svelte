@@ -4,6 +4,9 @@
     import { gsap } from 'gsap';
     import { supabase } from '$lib/supabase';
     //import { pathToFileURL } from 'url';
+    let evil = true;
+    // == invert page ==
+
 
     // == marquee ==
     let marquee: HTMLDivElement;
@@ -93,7 +96,6 @@
     let tiles2 = ['/split/tile_3.png','split/tile_4.png','split/tile_5.png']
     let tiles3 = ['/split/tile_6.png','split/tile_7.png','split/tile_8.png']
     import interact from 'interactjs';
-    
     onMount(() => {
         interact('.draggable_tile').draggable({
             listeners: {
@@ -108,6 +110,26 @@
             }
         })
     });
+    //part with upload
+    function upload_grid() {
+        alert("TODO:UPLOADIMG")
+    }
+    // == EVILS SWITCH ==
+    let evil_switch: HTMLImageElement;
+    function toggle_evil() {
+        console.log("evil" + evil);
+        if(!evil) {
+            evil = true;
+            evil_switch.src = "/good.png"
+            document.body.style.filter = "";
+
+        }
+        else {
+            evil = false;
+            evil_switch.src = "/evil.png"
+            document.body.style.filter = "invert()";
+        }
+    }
 </script>
 
 <!-- == html content == -->
@@ -126,6 +148,47 @@
         </div>
     </div>
     <div class="main">
+        <div class="welcome">
+            <div class="welcome_l">
+                <div class="mosaic">
+                    <div class="tile">
+                        {#each tiles1 as isrc}
+                        <img class="draggable_tile" src={isrc} alt="tile">
+                        {/each}
+                    </div>
+        
+                    <div class="tile">
+                        {#each tiles2 as isrc}
+                        <img class="draggable_tile" src={isrc} alt="tile">
+                        {/each}
+                    </div>
+        
+                    <div class="tile">
+                        {#each tiles3 as isrc}
+                        <img class="draggable_tile" src={isrc} alt="tile">
+                        {/each}
+                    </div>
+                    <button on:click={upload_grid} id="upload_pic" class="draggable_tile">upload-your-own-image</button>
+                </div>    
+            </div>
+            <div class="welcome_r">
+                <div class="welcome_description">
+                    <h1>weLcome</h1>
+                    <p>
+                        hello welcome to my website . make yourself at home -- 
+                        There are Many things you can do here. But the first thing
+                        you should probably do is draw a picture right below here!
+                        <br><br>
+                        When you are done drawing hit the 'save ' button and then YYou can
+                        check out yours and everyones drawings in the <a href="oaerg">-- DRAWING POOL --</a>
+                    </p>
+                </div>
+                <div class="evil_switch_container">
+                    <p>evil switch -></p>
+                    <button id="evil_switch" on:click={toggle_evil}><img width=25px bind:this={ evil_switch } src="/good.png" alt=""></button>
+                </div>
+            </div>
+        </div>
         <div class="draw_zone">
             <canvas
                 bind:this={canvas}
@@ -150,29 +213,14 @@
                 <button style="background-color:gray;border-style:solid;border-color:gray;color:gray" on:click={() => set_color("gray")}> -</button>
             </div>
         </div>
-        <div class="mosaic">
-            <div class="tile">
-                {#each tiles1 as isrc}
-                <img class="draggable_tile" src={isrc} alt="tile">
-                {/each}
-            </div>
-
-            <div class="tile">
-                {#each tiles2 as isrc}
-                <img class="draggable_tile" src={isrc} alt="tile">
-                {/each}
-            </div>
-
-            <div class="tile">
-                {#each tiles3 as isrc}
-                <img class="draggable_tile" src={isrc} alt="tile">
-                {/each}
-            </div>
-        </div>
     </div>
 </main>
 
 <style>
+    main {
+        /*filter:invert();*/
+        overflow:hidden;
+    }
     /* == header == */
     header {
         margin:0px;
@@ -181,7 +229,6 @@
         background-size: cover;
         background-position: 100vh;
         filter: invert();
-
     }
     /* == marquee == */
     .mqc {
@@ -198,23 +245,28 @@
         width: fit-content;
     }
     @font-face {
-        font-family: "Block";
+        font-family: "picto";
         src: url("/pictochat.ttf") format("truetype");
+        font-display: swap;
+    }
+    @font-face {
+        font-family: "block";
+        src: url("/block.ttf") format("truetype");
         font-display: swap;
     }
     .marquee_content {
         height:25px;
-        font-family: "Block", sans-serif;
+        font-family: "picto", sans-serif;
         flex: 0 0 auto;
         padding:0;
         margin:0;
         padding-right: 0.1rem;
     }
-    /* == MAIN CONTENT CONTAINER == */
+
     .main{
         display:flex;
         flex-direction: column;
-        padding:10px;
+        padding:20px;
         height:100vh;
         background-color:ghostwhite;
     }
@@ -232,12 +284,18 @@
         top:-50px;
         right:-5px;
     }
-    .controls button {
+    button {
         background: white;
         border-style:solid;
     }
+    button:hover {
+        background: rgb(251, 251, 251);
+        border-style:solid;
+    }
+    button:active {
+        background: rgb(202, 203, 202);
+    }
 
-    /* == END MAIN CONTENT CONTAINER == */
     .mosaic{
         display:flex;
         flex-direction: column;
@@ -248,9 +306,60 @@
         filter: drop-shadow(1px 1px 1px #000000);
     }
     .mosaic img {
-        width:50px;
+        width:100px;
         margin:0;
+        padding:0.5px;
+    }
+    .welcome{
+        display:flex;
+        flex-direction: row;
+        background-image:url("/gear_w.bmp");
+        justify-content: baseline;
+        margin-bottom:20px;
+    }
+    .welcome h1 {
+        font-family: block;
         padding:0;
+        margin:0;
+        text-align: center;
+    }
+    .welcome_l button {
+        flex-grow:0;
+        position:relative;
+    }
+    .welcome_r {
+        display:flex;
+        flex-direction: column;
+        flex-grow:1;
+    } 
+    .welcome_description {
+        background-color: rgba(211, 211, 211, 0.085);
+        height:100%;
+        margin:20px;
+    }
+    .welcome_description p {
+        padding:15px;
+        color:black;
+        font-family: "picto";
+        font-size:15pt;
+        margin:0;
+    }
+    #evil_switch{
+        margin:0;
+        padding:2px;
+        width:36px;
+        height:54px;
+    }
+    .evil_switch_container {
+        color:white;
+        height:54px;
+        display:flex;
+        justify-content: space-between;
+    }
+    .evil_switch_container p {
+        font-family:"picto";
+        font-size:25px;
+        margin-left:20px;
     }
 </style>
 

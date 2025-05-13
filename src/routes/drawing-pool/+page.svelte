@@ -34,8 +34,9 @@
         console.warn('No drawings found in bucket.');
         }
     });
-
-
+    let drawing:HTMLDivElement;
+    d_style = drawing.style;
+    // drawing.style.transform = "rotate(45deg)";
 </script>
 
 <header>
@@ -43,10 +44,12 @@
 </header>
 
 <main>
+    <img width=200px style="position:absolute;top:150px;" src="/throw1.png" alt="">
+    <img width=200px style="position:absolute;right:0;top:1200px;" src="/throw2.png" alt="">
     <div class="drawings_grid">
         {#each drawing_urls as url}
-            <div class="drawing">
-                <img src={url} alt="drawing, undefined">
+            <div class="drawing" bind:this={ drawing } >
+                <img class="drawing_img" src={url} alt="drawing, undefined">
             </div>
         {/each}
     </div>
@@ -77,6 +80,30 @@
         font-display: swap;
     }
 
+    main {
+        background-image:url("/paper.png");
+        background-size: contain;
+        height:100%;
+    }
+
     /* == drawings zone == */
-        
+    .drawings_grid {
+        display:flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .drawing {
+        z-index: 2;
+        margin:15px;
+        padding:4px;
+        background-color: rgb(255, 255, 255);
+    }
+    .drawing_img {
+        padding:9px;
+        border:5px;
+        border-style: dashed;
+        width: 400px;
+        border-color:rgb(0, 0, 255);
+        background-color: white;
+    }
 </style>
