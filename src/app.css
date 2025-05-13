@@ -4,3 +4,14 @@ body {
     display:flex;
     flex-direction: column;
 }
+
+@font-face {
+    font-family: "picto";
+    src: url("/pictochat.ttf") format("truetype");
+    font-display: swap;
+}
+@font-face {
+    font-family: "block";
+    src: url("/block.ttf") format("truetype");
+    font-display: swap;
+}

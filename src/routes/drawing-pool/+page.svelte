@@ -35,8 +35,6 @@
         }
     });
     let drawing:HTMLDivElement;
-    d_style = drawing.style;
-    // drawing.style.transform = "rotate(45deg)";
 </script>
 
 <header>

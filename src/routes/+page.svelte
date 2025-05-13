@@ -244,16 +244,6 @@
         flex-wrap: nowrap;
         width: fit-content;
     }
-    @font-face {
-        font-family: "picto";
-        src: url("/pictochat.ttf") format("truetype");
-        font-display: swap;
-    }
-    @font-face {
-        font-family: "block";
-        src: url("/block.ttf") format("truetype");
-        font-display: swap;
-    }
     .marquee_content {
         height:25px;
         font-family: "picto", sans-serif;
