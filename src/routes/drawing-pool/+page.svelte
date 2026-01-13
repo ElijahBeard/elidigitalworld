@@ -35,6 +35,10 @@
         }
     });
     let drawing:HTMLDivElement;
+    onMount(() => {
+        drawing.style.backgroundColor = "red";
+        console.log(drawing.innerHTML);
+    });
 </script>
 
 <header>

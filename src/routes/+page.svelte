@@ -3,6 +3,8 @@
     import { onMount } from 'svelte';
     import { gsap } from 'gsap';
     import { supabase } from '$lib/supabase';
+    import Turbine from './turbine.svelte';
+    import { Canvas } from '@threlte/core'
     //import { pathToFileURL } from 'url';
     let evil = true;
     // == invert page ==
@@ -114,22 +116,24 @@
     function upload_grid() {
         alert("TODO:UPLOADIMG")
     }
-    // == EVILS SWITCH ==
-    let evil_switch: HTMLImageElement;
-    function toggle_evil() {
-        console.log("evil" + evil);
-        if(!evil) {
-            evil = true;
-            evil_switch.src = "/good.png"
-            document.body.style.filter = "";
-
-        }
-        else {
-            evil = false;
-            evil_switch.src = "/evil.png"
-            document.body.style.filter = "invert()";
-        }
-    }
+    // // == EVILS SWITCH ==
+    // let evil_switch: HTMLImageElement;
+    // let evil_container: HTMLDivElement;
+    // function toggle_evil() {
+    //     console.log("evil" + evil);
+    //     if(!evil) {
+    //         evil = true;
+    //         evil_switch.src = "/good.png"
+    //         document.body.style.filter = "";
+    //         evil_container.style.filter = "";
+    //     }
+    //     else {
+    //         evil = false;
+    //         evil_switch.src = "/evil.png"
+    //         document.body.style.filter = "invert()";
+    //         evil_container.style.filter = "invert()";
+    //     }
+    // }
 </script>
 
 <!-- == html content == -->
@@ -150,7 +154,12 @@
     <div class="main">
         <div class="welcome">
             <div class="welcome_l">
-                <div class="mosaic">
+                <div class="turbine">
+                    <Canvas>
+                        <Turbine/>
+                    </Canvas>
+                </div>
+                <!-- <div class="mosaic">
                     <div class="tile">
                         {#each tiles1 as isrc}
                         <img class="draggable_tile" src={isrc} alt="tile">
@@ -169,48 +178,43 @@
                         {/each}
                     </div>
                     <button on:click={upload_grid} id="upload_pic" class="draggable_tile">upload-your-own-image</button>
-                </div>    
+                </div>     -->
             </div>
             <div class="welcome_r">
                 <div class="welcome_description">
                     <h1>weLcome</h1>
-                    <p>
-                        hello welcome to my website . make yourself at home -- 
-                        There are Many things you can do here. But the first thing
-                        you should probably do is draw a picture right below here!
-                        <br><br>
-                        When you are done drawing hit the 'save ' button and then YYou can
-                        check out yours and everyones drawings in the <a href="oaerg">-- DRAWING POOL --</a>
+                    <p>to elidigitalworld.xyz. Feel free to draw
+                         an picture. Save it to the compendium with everyone elses drawings!
                     </p>
                 </div>
-                <div class="evil_switch_container">
+                <div class="draw_zone">
+                    <canvas
+                        bind:this={canvas}
+                        width={600}
+                        height={250}
+                        on:mousedown={startDrawing}
+                        on:mouseup={stopDrawing}
+                        style="border:2px solid black; touch-action: none;background-color:white;">
+                    </canvas>
+                    
+                    <br />
+                    <div class="controls">
+                        <button on:click={saveCanvas}><i class="fa-solid fa-floppy-disk"></i></button>
+                        <button on:click={clearCanvas}>Clear</button>
+                        <button on:click={stroke_incr}>+</button>
+                        <button on:click={stroke_decr}>-</button>
+                        <button style="background-color:black;border-style:solid;border-color:black;color:black" on:click={() => set_color("black")}> -</button>
+                        <button style="background-color:white;border-style:solid;color:white;" on:click={() => set_color("white")}> -</button>
+                        <button style="background-color:cyan;border-style:solid;border-color:cyan;color:cyan" on:click={() => set_color("cyan")}> -</button>
+                        <button style="background-color:magenta;border-style:solid;border-color:magenta;color:magenta" on:click={() => set_color("magenta")}> -</button>
+                        <button style="background-color:yellow;border-style:solid;border-color:yellow;color:yellow" on:click={() => set_color("yellow")}> -</button>
+                        <button style="background-color:gray;border-style:solid;border-color:gray;color:gray" on:click={() => set_color("gray")}> -</button>
+                    </div>
+                </div>
+                <!-- <div bind:this={ evil_container } class="evil_switch_container">
                     <p>evil switch -></p>
                     <button id="evil_switch" on:click={toggle_evil}><img width=25px bind:this={ evil_switch } src="/good.png" alt=""></button>
-                </div>
-            </div>
-        </div>
-        <div class="draw_zone">
-            <canvas
-                bind:this={canvas}
-                width={600}
-                height={250}
-                on:mousedown={startDrawing}
-                on:mouseup={stopDrawing}
-                style="border:2px solid black; touch-action: none;background-color:white;">
-            </canvas>
-            
-            <br />
-            <div class="controls">
-                <button on:click={saveCanvas}><i class="fa-solid fa-floppy-disk"></i></button>
-                <button on:click={clearCanvas}>Clear</button>
-                <button on:click={stroke_incr}>+</button>
-                <button on:click={stroke_decr}>-</button>
-                <button style="background-color:black;border-style:solid;border-color:black;color:black" on:click={() => set_color("black")}> -</button>
-                <button style="background-color:white;border-style:solid;color:white;" on:click={() => set_color("white")}> -</button>
-                <button style="background-color:cyan;border-style:solid;border-color:cyan;color:cyan" on:click={() => set_color("cyan")}> -</button>
-                <button style="background-color:magenta;border-style:solid;border-color:magenta;color:magenta" on:click={() => set_color("magenta")}> -</button>
-                <button style="background-color:yellow;border-style:solid;border-color:yellow;color:yellow" on:click={() => set_color("yellow")}> -</button>
-                <button style="background-color:gray;border-style:solid;border-color:gray;color:gray" on:click={() => set_color("gray")}> -</button>
+                </div> -->
             </div>
         </div>
     </div>
@@ -219,7 +223,8 @@
 <style>
     main {
         /*filter:invert();*/
-        overflow:hidden;
+        overflow-x:hidden;
+        overflow-y:auto;
     }
     /* == header == */
     header {
@@ -229,6 +234,8 @@
         background-size: cover;
         background-position: 100vh;
         filter: invert();
+        z-index: 3;
+
     }
     /* == marquee == */
     .mqc {
@@ -258,16 +265,26 @@
         flex-direction: column;
         padding:20px;
         height:100vh;
-        background-color:ghostwhite;
+        background-image:url("/IMG_2888.JPG");
+        background-size: cover;
+    }
+    /* ==TURBINE== */
+    .turbine {
+        position:absolute;
+        right:0;
+        width:100vw;
+        height:90vh;
+        z-index:0;
     }
     /* ==DRAW_ZONE== */
     .draw_zone{
-        width:100vw;
         display:flex;
         flex-direction: column;
         align-items: center;
         overflow:hidden;
-        padding:0px;
+        padding:0;
+        margin:0;
+        z-index: 2;
     }
     .controls{
         position:relative;
@@ -286,9 +303,12 @@
         background: rgb(202, 203, 202);
     }
 
+    /* == TILE ZONE == */
     .mosaic{
         display:flex;
         flex-direction: column;
+        min-width:300px;
+        max-width:500px;
     }
     .tile {
         display:flex;
@@ -296,16 +316,24 @@
         filter: drop-shadow(1px 1px 1px #000000);
     }
     .mosaic img {
-        width:100px;
         margin:0;
+        width:32%;
         padding:0.5px;
     }
+    .mosaic button {
+        max-width:200px;
+    }
+
+    /* == welcome == */
     .welcome{
+        padding:10px;
+        height:320px;
         display:flex;
-        flex-direction: row;
         background-image:url("/gear_w.bmp");
-        justify-content: baseline;
-        margin-bottom:20px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content:center;
+        border-radius: 30px;
     }
     .welcome h1 {
         font-family: block;
@@ -313,28 +341,36 @@
         margin:0;
         text-align: center;
     }
+    /* == welcome l == */
+    .welcome_l {
+        display:flex;
+        justify-content: center;
+        /* width:303px;
+        height:325px; */
+    }
     .welcome_l button {
-        flex-grow:0;
         position:relative;
     }
+
+    /* == welcome r == */
     .welcome_r {
+        z-index: 2;
         display:flex;
         flex-direction: column;
-        flex-grow:1;
+        justify-content:center;
+        align-items: center;
     } 
     .welcome_description {
-        background-color: rgba(211, 211, 211, 0.085);
-        height:100%;
-        margin:20px;
+        width:70%;
     }
     .welcome_description p {
-        padding:15px;
+        padding:5px;
         color:black;
         font-family: "picto";
         font-size:15pt;
         margin:0;
     }
-    #evil_switch{
+    /* #evil_switch{
         margin:0;
         padding:2px;
         width:36px;
@@ -350,6 +386,5 @@
         font-family:"picto";
         font-size:25px;
         margin-left:20px;
-    }
+    } */
 </style>
-

@@ -18,6 +18,7 @@ int main(int argc, const char* argv[]) {
     if(image.empty()) {
         return -1;
     }
+    
     int rows = 3, cols = 3;
     int tilew = image.cols / cols;
     int tileh = image.rows / rows;

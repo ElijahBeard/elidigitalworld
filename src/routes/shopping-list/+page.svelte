@@ -1,12 +1,11 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import interact from 'interactjs';
+    import { supabase } from '$lib/supabase';
+
 
     let lines: HTMLDivElement;
     let line_space = 20;
-    let tolerance = 15;
-    let new_item = '';
-    let items: { id:string; item:string; order:number }[] = [];
 
     // == LINES CREATION ==
     onMount(() => {
@@ -19,62 +18,42 @@
         }
     });
 
-    // == LIST DRAGGING ==
-    async function update_order() {
-        const items_dom = Array.from(document.querySelectorAll('.list_item')) as HTMLElement[];
+    // == DRAGGABLE LIST == 
+    let items: { id: string; item: string; order: number }[] = [];
+    let drag_id: string | null = null;
 
-        const new_order = items_dom.map((el, index) => ({
-            id: el.dataset.id!,
-            order: index
-        }));
-
-        await Promise.all(
-            new_order.map(async ({ id, order }) => {
-            const { error } = await supabase
-                .from('shopping-list')
-                .update({ order })
-                .eq('id', id);
-
-            if (error) {
-                console.error(`❌ Failed to update order for ${id}:`, error.message);
+    function draggable(node:HTMLElement) {
+        interact(node).draggable({
+            listeners: {
+                start(event) {
+                    drag_id = node.dataset.id!;
+                },
+                move(event) {
+                    const x = (parseFloat(node.getAttribute('data-x') || '0')) + event.dx;
+                    const y = (parseFloat(node.getAttribute('data-y') || '0')) + event.dy;
+                    node.style.transform = `translate(${x}px,${y}px)`;
+                    node.setAttribute('data-x',x.toString());
+                    node.setAttribute('data-y',y.toString());
+                },
+                end(event) {
+                    node.style.transform = '';
+                    node.removeAttribute('data-x');
+                    node.removeAttribute('data-y');
+                }
             }
-            })
-        );
-
-        items = [...items].sort((a, b) => {
-            const aOrder = new_order.find(o => o.id === a.id)?.order ?? 0;
-            const bOrder = new_order.find(o => o.id === b.id)?.order ?? 0;
-            return aOrder - bOrder;
         });
     }
 
-
-    onMount(() => {
-        interact('.list_item').draggable({
-            modifiers: [
-                interact.modifiers.snap({
-                    targets: [interact.snappers.grid({ x:0, y:line_space })],
-                    range: Infinity,
-                    relativePoints: [{ x:0, y:0 }]
-                })
-            ],
-
-            listeners:{
-                move(event) {
-                    const target = event.target;
-                    const y = (parseFloat(target.getAttribute('data-y') || 0)) + event.dy;
-                    const snapped_y = Math.round(y / tolerance) * tolerance;
-                    target.style.transform  = `translate(0,${snapped_y}px)`;
-                    target.setAttribute('data-y',snapped_y.toString());
-                },
-                end(event) {
-                    update_order();
-                }
-            }
-        })
-    });
-
-    import { supabase } from '$lib/supabase';
+    // async function add_item(item:string) {
+    //     const order = items.length;
+    //     const { data,error } = await supabase
+    //         .from('shopping-list')
+    //         .insert([{ item,order }])
+    //         .select();
+    //     if (!error && data) {
+    //         items = [...items,data[0]];
+    //     }
+    // }
 
     async function delete_item(id:string){
         const { error } = await supabase
@@ -88,27 +67,75 @@
         }
     }
 
-    async function add_item(item:string) {
-        const order = items.length;
-        const { data,error } = await supabase
-            .from('shopping-list')
-            .insert([{ item,order }])
-            .select();
-        if (!error && data) {
-            items = [...items,data[0]];
-        }
+
+    function drop_target(node:HTMLElement) {
+        interact(node).dropzone({
+            ondrop(event) {
+                const target_id = node.dataset.id!;
+                if (drag_id && target_id !== drag_id) {
+                    reorder_items(drag_id,target_id);
+                    drag_id = null;
+                }
+            }
+        });
     }
 
+    function reorder_items(from_id:string,to_id:string) {
+        const from_index = items.findIndex(i => i.id === from_id);
+        const to_index = items.findIndex(i => i.id === to_id);
+
+        if (from_index === -1 || to_index === -1) return;
+
+        const [moved] = items.splice(from_index,1);
+        items.splice(to_index,0,moved);
+        items = items.map((item,index) => ({...item,order:index}));
+
+        Promise.all(
+            items.map(({ id, order }) =>
+                supabase.from('shopping_list').update({ order }).eq('id', id)
+            )
+        );
+    }
+        import '../../app.css';
+    import { supabase } from '$lib/supabase';
+    import { onMount } from 'svelte';
+
+    let drawing_urls: string[] = [];
+
     onMount(async () => {
-        const { data,error } = await supabase
-            .from('shopping-list')
-            .select('*')
-            .order('order',{ascending:true});
-        if (data) {
-            items = data;
+        const { data, error } = await supabase
+        .storage
+        .from('drawings')
+        .list('', {
+            limit: 100,
+            offset: 0,
+            sortBy: { column: 'name', order: 'asc' } // Optional, ensures predictable order
+        });
+
+        console.log('Listing result:', data, error);
+
+        if (error) {
+        console.error('Error listing drawings:', error.message);
+        return;
+        }
+
+        if (data && data.length > 0) {
+        drawing_urls = data
+            .filter(file => file.name.endsWith('.png'))
+            .map(file =>
+            supabase.storage
+                .from('drawings')
+                .getPublicUrl(file.name).data.publicUrl
+            );
+        } else {
+        console.warn('No drawings found in bucket.');
         }
     });
-
+    let drawing:HTMLDivElement;
+    onMount(() => {
+        drawing.style.backgroundColor = "red";
+        console.log(drawing.innerHTML);
+    });
 </script>
 
 <main>
@@ -116,23 +143,21 @@
     <div class="content">
         <ul id="list">
             {#each items as item (item.id)}
-                <div class="list_item" data-id={item.id} data-y="0">
+              <li
+                class="list_item"
+                data-id={item.id}
+                use:draggable
+                use:drop_target
+              >
                 <button on:click={() => delete_item(item.id)}>❌</button>
                 <p>{item.item}</p>
-                </div>
+              </li>
             {/each}
-        </ul>   
+        </ul>
 
         <div class="entry_section">
             <button style="padding:0;">
                 <input
-                bind:value={new_item}
-                on:keydown={(e) => {
-                    if(e.key === 'Enter') {
-                        add_item(new_item);
-                        new_item = '';
-                    }
-                }}
                 style="padding:0;margin:0;" type="text">
             </button>
         </div>

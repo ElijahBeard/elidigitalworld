@@ -4,14 +4,34 @@ body {
     display:flex;
     flex-direction: column;
 }
+html {
+    margin:0;
+    padding:0;
+}
 
 @font-face {
     font-family: "picto";
-    src: url("/pictochat.ttf") format("truetype");
+    src: url("/fonts/pictochat.ttf") format("truetype");
     font-display: swap;
 }
 @font-face {
     font-family: "block";
-    src: url("/block.ttf") format("truetype");
+    src: url("/fonts/block.ttf") format("truetype");
     font-display: swap;
 }
+@font-face {
+    font-family: "monoregular";
+    src: url("/fonts/SpaceMono-Regular.ttf") format("truetype");
+    font-display: swap;
+}
+@font-face {
+    font-family: "monobold";
+    src: url("/fonts/SpaceMono-Bold.ttf") format("truetype");
+    font-display: swap;
+}
+@font-face {
+    font-family: "matcha";
+    src: url("/fonts/matcha.otf");
+    font-display: swap;
+}
+

@@ -25,7 +25,13 @@
 	},
 	"dependencies": {
 		"@supabase/supabase-js": "^2.49.4",
+		"@threlte/core": "^8.1.3",
+		"@threlte/extras": "^9.4.2",
+		"@types/three": "^0.178.1",
 		"gsap": "^3.13.0",
-		"interactjs": "^1.10.27"
+		"highlight.js": "^11.11.1",
+		"interactjs": "^1.10.27",
+		"three": "^0.178.0",
+		"threlte-postprocessing": "^0.0.10"
 	}
 }
