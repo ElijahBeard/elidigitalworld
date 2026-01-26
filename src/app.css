@@ -3,6 +3,7 @@ body {
     padding:0;
     display:flex;
     flex-direction: column;
+    background-color: gray;
 }
 html {
     margin:0;
@@ -12,6 +13,11 @@ html {
 @font-face {
     font-family: "picto";
     src: url("/fonts/pictochat.ttf") format("truetype");
+    font-display: swap;
+}
+@font-face {
+    font-family: "pixel-icon";
+    src: url("/fonts/pixelicon.ttf") format("truetype");
     font-display: swap;
 }
 @font-face {
