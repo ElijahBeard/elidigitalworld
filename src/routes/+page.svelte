@@ -1,14 +1,14 @@
 <script lang="ts">
     import '../app.css';
-    import Box from './box.svelte';
-    import Rip from './rip.svelte';
+    import Box from './home/box.svelte';
     import gsap from 'gsap';
     import { onMount } from 'svelte';
     
-    let boxes = [[Box,{content:'n'}],[Box,{content:'B'}],
-                 [Box,{content:'1'}],[Box,{content:'1'}],
-                 [Box,{content:'1'}],[Box,{content:'1'}],
-                 [Box,{content:'1'}],[Box,{content:'1'}]];
+    let boxes = [[Box,{content:'c'}],[Box,{content:'o'}],
+                 [Box,{content:'n'}],[Box,{content:'s'}],
+                 [Box,{content:'t'}],[Box,{content:'r'}],
+                 [Box,{content:'u'}],[Box,{content:'c'}],
+                 [Box,{content:'t'}],[Box,{content:'/'}]];
 
     onMount(() => {
         gsap.to('.gear0',100,{rotate:-360,repeat:-1,ease:'none'});
@@ -17,21 +17,28 @@
 </script>
 
 <main>
-    <Rip/>
     <div class="stack">
         {#each boxes as [component,props]}
             <svelte:component this={component} {...props}/>
         {/each}
     </div>
     <img id="title" src="/title.png" alt="">
-    <img class="gear0" src="/gear.png" alt="">
-    <img class="gear1" src="/gear.png" alt="">
+    <div class="content">
+        <h1 style="font-family:picto">website currently under maintainence</h1>
+    </div>
+    <h1>Jump To:</h1>
+    <ul><li><a href="/blog">blog</a></li><li><a href="/xtel">xtel</a></li></ul>
 </main>
+<img class="gear0" src="/gear.png" alt="">
+<img class="gear1" src="/gear.png" alt="">
 
 <style>
     :global(body) {
+        font-family:"picto";
         overflow:hidden;
+        background-color:gray;
     }
+    
     main {
         margin:30px;
     }
@@ -60,5 +67,8 @@
         position:absolute;
         top:-500px;
         right:-500px;
+    }
+    .content {
+        margin-top:300px;
     }
 </style>
