@@ -3,7 +3,6 @@ body {
     padding:0;
     display:flex;
     flex-direction: column;
-    background-color: gray;
 }
 html {
     margin:0;
@@ -36,8 +35,12 @@ html {
     font-display: swap;
 }
 @font-face {
+    font-family: "romans";
+    src: url("/fonts/RomanS.ttf") format("truetype");
+    font-display: swap;
+}
+@font-face {
     font-family: "matcha";
     src: url("/fonts/matcha.otf");
     font-display: swap;
 }
-
