@@ -1,12 +1,28 @@
 body {
     margin:0;
     padding:0;
-    display:flex;
-    flex-direction: column;
+    overflow:hidden;
 }
 html {
     margin:0;
     padding:0;
+}
+
+.bg-default {
+    font-family:"picto";
+    display:flex;
+    flex-direction: column;
+	background-color: gray;
+    height:100vh;
+    overflow:hidden;
+}
+.bg-blog {
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    background-color:rgb(230, 224, 207);
+    overflow-y:scroll;
+    height:100vh;
 }
 
 @font-face {

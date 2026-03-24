@@ -33,12 +33,12 @@
 <img class="gear1" src="/gear.png" alt="">
 
 <style>
-    :global(body) {
+    /* :global(body) {
         font-family:"picto";
         overflow:hidden;
         background-color:gray;
-    }
-    
+    } */
+
     main {
         margin:30px;
     }

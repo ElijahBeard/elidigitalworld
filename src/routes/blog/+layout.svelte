@@ -5,29 +5,32 @@
 		.split('/')
 		.filter(Boolean)
     )
+    console.log(page.data.bodystyle)
 </script>
-
-<nav>
-    <div class="path" style="display:flex;align-items:center;">
-        <p>[</p>
-        <a href="/">home</a>
-        {#each segments as seg, i}
-            <p>/</p>
-            <a href={"/" + segments.slice(0, i + 1).join("/")}>
-                {seg}
-            </a>
-        {/each}
-        <p>]</p>
-    </div>
-</nav>
+<div class={page.data.bodystyle}>
+    <nav>
+        <div class="path" style="display:flex;align-items:center;">
+            <p>[</p>
+            <a href="/">home</a>
+            {#each segments as seg, i}
+                <p>/</p>
+                <a href={"/" + segments.slice(0, i + 1).join("/")}>
+                    {seg}
+                </a>
+            {/each}
+            <p>]</p>
+        </div>
+    </nav>
+    {@render children()}
+</div>
 
 <style>
-    :global(body) {
+    /* :global(body) {
         display:flex;
         flex-direction: column;
         align-items:center;
         background-color:rgb(230, 224, 207);
-    }
+    } */
     nav{
         font-family:"monobold";
         color:black;
@@ -49,4 +52,3 @@
     }
 </style>
 
-{@render children()}

@@ -66,12 +66,12 @@
         flex-direction: column;
         justify-content: space-between;
     }
-    :global(body) {
+    /* :global(body) {
         margin:0;
         padding:0;
         border-style:solid;
         border-color: rgba(0, 0, 0, 0.163);
-    }
+    } */
     main {
         display:flex;
         flex-direction: row;
