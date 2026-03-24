@@ -18,6 +18,14 @@ Thumbs.db
 !.env.example
 !.env.test
 
-# Vite
+# Vites
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Static (Bloat)
+/static
+/src/lib/assets/
+./firebase/
+.firebaserc
+.firebase.json
+.firebase/
