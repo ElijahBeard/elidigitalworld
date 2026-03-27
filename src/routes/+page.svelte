@@ -3,12 +3,9 @@
     import Box from './home/box.svelte';
     import gsap from 'gsap';
     import { onMount } from 'svelte';
+    import type { Component } from 'svelte';
     
-    let boxes = [[Box,{content:'c'}],[Box,{content:'o'}],
-                 [Box,{content:'n'}],[Box,{content:'s'}],
-                 [Box,{content:'t'}],[Box,{content:'r'}],
-                 [Box,{content:'u'}],[Box,{content:'c'}],
-                 [Box,{content:'t'}],[Box,{content:'/'}]];
+    let boxes = ['c','o','n','s','t','r','u','c','t','/'];
 
     onMount(() => {
         gsap.to('.gear0',100,{rotate:-360,repeat:-1,ease:'none'});
@@ -18,8 +15,8 @@
 
 <main>
     <div class="stack">
-        {#each boxes as [component,props]}
-            <svelte:component this={component} {...props}/>
+        {#each boxes as content}
+            <Box {content}/>
         {/each}
     </div>
     <img id="title" src="/title.png" alt="">

@@ -7,6 +7,7 @@
 <main>
     <h3>Recipies</h3>
     <a href="/blog/pattymelt" data-sveltekit-preload-data>patty melt tutorial</a>
+    <a href="/blog/springmenu">spring menu</a>
     <h3>Misc</h3>
     <a href="/blog/whisky" data-sveltekit-preload-data>whisky</a>
     <a href="/blog/personascreenshots" data-sveltekit-preload-data>persona screenshots</a>
