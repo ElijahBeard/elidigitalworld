@@ -3,13 +3,12 @@
     import Box from './home/box.svelte';
     import gsap from 'gsap';
     import { onMount } from 'svelte';
-    import type { Component } from 'svelte';
     
     let boxes = ['c','o','n','s','t','r','u','c','t','/'];
 
     onMount(() => {
-        gsap.to('.gear0',100,{rotate:-360,repeat:-1,ease:'none'});
-        gsap.to('.gear1',100,{rotate:360,repeat:-1,ease:'none'});
+        gsap.to('.gear0',{duration:100,rotate:-360,repeat:-1,ease:'none'});
+        gsap.to('.gear1',{duration:100,rotate:360,repeat:-1,ease:'none'});
     });
 </script>
 
