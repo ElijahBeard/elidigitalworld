@@ -2,7 +2,9 @@
     import gsap from 'gsap';
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
-    let duration = 0.09
+	import { page } from '$app/state';
+
+    let duration = 0.1
     export let content
 
 
@@ -13,8 +15,6 @@
             zIndex: 2,
             rotate:0,
             stroke:50,
-            bordercolor:'blue',
-            color:'blue',
             duration: duration,
             overwrite:'auto'
         });
@@ -26,8 +26,7 @@
             scale: 1,
             zIndex: 1,
             rotate: 0,
-            bordercolor:'black',
-            color:'black',
+            bordercolor:page.data.accent,
             duration: duration,
         });
     }
@@ -58,8 +57,8 @@
             top: 0,
             width: window.innerWidth,
             height: window.innerHeight,
-            duration: 0.5,
-            ease: "power2.inOut",
+            "background-color":"white",
+            duration: 0.3,
             onComplete: () => { navigate(`/${content}`); }
         });
     }
@@ -69,7 +68,10 @@
     })
 </script>
 
-<button class="box" style={`view-transition-name:${content}`} on:mouseenter={grow} on:mouseleave={shrink} on:click={_load}>
+<button class="box" style="view-transition-name:${content};--accent:{page.data.accent}; --bg:{page.data.bg};"
+        on:mouseenter={grow} 
+        on:mouseleave={shrink} 
+        on:click={_load}>
     {content}
 </button>
 
@@ -79,9 +81,10 @@
         height:40px;
         margin:1px;
         border:1px;
-        border-color:black;
+        border-color:var(--accent);
         border-style:solid;
-        background-color: gray;
+        background-color:var(--bg);
+        color:var(--accent);
         display:flex;
         justify-content: center;
         align-items: center;

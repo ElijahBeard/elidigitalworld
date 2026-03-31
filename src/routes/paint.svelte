@@ -118,6 +118,5 @@
     }
     #delete:active {
         color:red;
-        color:rgba(232, 255, 59, 0.398);
     }
 </style>

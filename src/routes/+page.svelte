@@ -1,74 +1,84 @@
 <script lang="ts">
     import '../app.css';
-    import Box from './home/box.svelte';
-    import Paint from './home/paint.svelte';
+    import Paint from './paint.svelte';
     import gsap from 'gsap';
     import { onMount } from 'svelte';
+	import { page } from '$app/state';
 
-    // let boxes = "late".split("")
-    let boxes = ["blog","draw","del"]
+    // nav
+    import Box from './box.svelte';
+    let boxes = ["blog","xtel",'+']
+
+    // reactive resizing
+    let width = window.innerWidth;
+    let mobile;
+    $: mobile = width <= 600;
 
     onMount(() => {
-        gsap.to('.gear0',{duration:100,rotate:-360,repeat:-1,ease:'none'});
-        gsap.to('.gear1',{duration:100,rotate:360,repeat:-1,ease:'none'});
+        gsap.to('.gear',{duration:100,rotate:360,repeat:-1,ease:'none'});
     });
 </script>
 
-<main>
+<svelte:window bind:innerWidth={width} />
+
+<main style="--accent:{page.data.accent}; --bg:{page.data.bg};">
     <div class="stack">
         {#each boxes as content}
         <Box {content}/>
         {/each}
     </div>
-    <!-- <img id="title" src="/title.png" alt=""> -->
-    <div class="content">
-        <!-- <Paint/> -->
+    <h1 id="title" style="font-family:block-logo;{page.data.accent};">{mobile ? "ED0Wld" : "ELiDIGITAL W0RLD"}</h1>
+    <div class="welcome" style="width:70vw;">
+        <p>Welcome to eli digital world! This site is the personal area of Eli B. The home page is currently under construction.</p>
+        <p>Feel free to use the canvas below to draw a picture while you wait for new features to come out. Or, use the nav in the top left to explore the site.</p>
+    </div>
+    <div id="paint">
+        <Paint/>
     </div>
 </main>
-<!-- <img class="gear0" src="/gear.png" alt="">
-<img class="gear1" src="/gear.png" alt=""> -->
+<img class="gear" src="/gear.png" alt="">
 
 <style>
-    /* :global(body) {
-        font-family:"picto";
-        overflow:hidden;
-        background-color:gray;
-    } */
     main {
-        margin:30px;
+        position:absolute;
+        top:0;
         z-index: 4;
+        display:flex;
+        flex-direction: column;
+        width:100vw;
+        background-color: var(--bg);
+        height:100vh;
+        overflow:scroll;
+        padding:12px;
     }
     #title {
-        z-index: 2;
-        position:absolute;
+        margin:0;
+        padding:0;
+        font-size:77pt;
+        overflow-wrap: break-word;
+        color: var(--accent);
+        /* color:rgba(106, 155, 20, 0.497); */
+    }
+    p {
+        margin:10px;
+        font-size:23px;
+        text-wrap: break-word;
     }
     .stack {
+        margin-bottom:10px;
         z-index: 10;
-        position:absolute;
-        top:126px;
-        left:490px;
         display: flex;
         flex-wrap:wrap;
         gap: 10px;
-        width:210px;
-        background-color: blue;
+        margin-left:6px;
     }
-    .gear0 {
-        z-index: 0;
-        position:absolute;
-        bottom:-500px;
-        left:-500px;
-    }
-    .gear1 {
-        z-index: 0;
+    .gear {
+        z-index: 2;
         position:absolute;
         top:-500px;
         right:-500px;
     }
-    .content {
-        margin-top:300px;
-    }
-    .paint {
-        border-style:solid;
+    #paint {
+        margin-left:9px;
     }
 </style>
