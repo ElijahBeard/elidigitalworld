@@ -14,39 +14,56 @@
     
     onMount(() => {
         ctx = canvas.getContext('2d')!
-        if(!canvas || !ctx) {throw new Error("failed 2d")} 
         ctx.lineWidth = 3
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
     })
 		
-    const start_draw = (e:MouseEvent) => {
-        drawing=true
-        x0 = e.offsetX
-        y0 = e.offsetY
-        if (!erase) {ctx.strokeStyle="#000";ctx.lineWidth=5}
-        else {ctx.strokeStyle="#FFF";ctx.lineWidth=10}
+    const start_draw = (e: PointerEvent) => {
+        drawing = true;
+        const pos = getPos(e);
+        x0 = pos.x;
+        y0 = pos.y;
+        if (!erase) {
+            ctx.strokeStyle = "#000";
+            ctx.lineWidth = 5;
+        } else {
+            ctx.strokeStyle = "#FFF";
+            ctx.lineWidth = 10;
+        }
+    };
+
+    function getPos(e: PointerEvent) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top
+        };
     }
 
-    const _draw = (e:MouseEvent) => {
-        if (drawing){
-            x1=e.offsetX
-            y1=e.offsetY
-            ctx.beginPath()
-            ctx.moveTo(x0,y0)
-            ctx.lineTo(x1,y1)
-            ctx.closePath()
-            ctx.stroke()
-            x0 = x1, y0 = y1;
-        }
-    }
+    const _draw = (e: PointerEvent) => {
+        if (!drawing) return;
+
+        const pos = getPos(e);
+        x1 = pos.x;
+        y1 = pos.y;
+
+        ctx.beginPath();
+        ctx.moveTo(x0, y0);
+        ctx.lineTo(x1, y1);
+        ctx.stroke();
+
+        x0 = x1;
+        y0 = y1;
+    };
     
     const stop_draw = () => {drawing=false}
 
     const _save = () => {
         gsap.to(".msg",{duration:1,top:0})
         gsap.to(".msg",{duration:1,top:"-21px",delay:3})
-
-        // gsap.to(".msg",{duration:1,top:"-21px"})
     }
+
     const tool = (tool:string) => {if(tool == "draw"){erase = false}else{erase = true}}
     const _clear = () => {ctx.clearRect(0,0,width,height)}
 </script>
@@ -57,9 +74,10 @@
     </div>
     <canvas id="drawing" {width} {height} style="background:#FFF" 
     bind:this={canvas} 
-    on:mousedown={start_draw} 
-    on:mousemove={_draw} 
-    on:mouseup={stop_draw} on:mouseleave={stop_draw}
+    on:pointerdown={start_draw}
+    on:pointermove={_draw}
+    on:pointerup={stop_draw}
+    on:pointerleave={stop_draw}
     on:contextmenu|preventDefault={() => {}}
     > 
     </canvas>
@@ -75,6 +93,10 @@
 
 
 <style>
+    canvas {
+        touch-action: none;
+        user-select: none;
+    }
     .draw_window {
         position:relative;
         overflow:hidden;

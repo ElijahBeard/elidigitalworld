@@ -11,10 +11,10 @@
     function grow (event: MouseEvent) {
         const node = event.currentTarget as HTMLElement;
         gsap.to(node, {
-            scale: 2,
+            scale: 1.5,
             zIndex: 2,
             rotate:0,
-            stroke:50,
+            stroke:5,
             duration: duration,
             overwrite:'auto'
         });
@@ -36,7 +36,6 @@
             goto(url);
             return;
         }
-
         document.startViewTransition(() => goto(url));
     };
 
@@ -62,15 +61,11 @@
             onComplete: () => { navigate(`/${content}`); }
         });
     }
-
-    onMount(() => {
-        // rot(1)
-    })
 </script>
 
 <button class="box" style="view-transition-name:${content};--accent:{page.data.accent}; --bg:{page.data.bg};"
         on:mouseenter={grow} 
-        on:mouseleave={shrink} 
+        on:mouseleave={shrink}
         on:click={_load}>
     {content}
 </button>
@@ -80,7 +75,7 @@
         width:40px;
         height:40px;
         margin:1px;
-        border:1px;
+        border:3px;
         border-color:var(--accent);
         border-style:solid;
         background-color:var(--bg);
