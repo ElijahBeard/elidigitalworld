@@ -1,28 +1,30 @@
 <script lang="ts">
-    import '../app.css';
-    import Paint from './paint.svelte';
-    import Windfield from '$lib/components/windfield.svelte';
-    import gsap from 'gsap';
     import { onMount } from 'svelte';
 	import { page } from '$app/state';
+    import '../app.css';
 
-    // nav
-    import Box from './box.svelte';
+    // Components
+    import Paint from '$lib/components/paint.svelte';
+    import Gear from '$lib/components/gear.svelte';
+    let gear!:Gear
+    // Nav
+    import Box from '$lib/components/box.svelte';
     let boxes = ["blog","xtel","98n","294",'im',"sfaf"]
-
-    // reactive resizing
-    let width = 0;
-    let mobile;
-    $: mobile = width <= 600;
+    // Windfield 3D
+    import Windfield from '$lib/components/windfield.svelte';
+    let windfield!:Windfield
     
+    // Reactive resizing
+    let width = 0
+    let mobile
+    $: mobile = width <= 600
     onMount(() => {
         width = window.innerWidth;
-        gsap.to('.gear',{duration:100,rotate:360,repeat:-1,ease:'none'});
     });
 </script>
 
 <svelte:window bind:innerWidth={width} />
-
+<div id="windfield"><Windfield bind:this={windfield}/></div>
 <main style="--accent:{page.data.accent}; --bg:{page.data.bg};">
     <div class="stack">
         {#each boxes as content}
@@ -31,20 +33,18 @@
     </div>
     <h1 id="title" style="font-family:block-logo;{page.data.accent};">{mobile ? "ED W0rld" : "ELi DIGITAL W0RLD"}</h1>
     <div class="welcome" style="width:70vw;">
-
+        <button on:click={() => {windfield.move();gear.move_gear()}}>Move</button>
     </div>
     <div id="paint">
-        <!-- <Paint/> -->
+        <Paint/>
     </div>
 </main>
-<div id="windfield"><Windfield/></div>
-<img class="gear" src="/gear.png" alt="">
-
+<!-- <Gear bind:this={gear}/> -->
 <style>
     main {
         position:absolute;
         top:0;
-        z-index: 40;
+        z-index: 4;
         display:flex;
         flex-direction: column;
         width:100vw;
@@ -61,8 +61,6 @@
         color: var(--accent);
         letter-spacing: 0.05em;
         word-spacing: -29px;
-
-        /* color:rgba(106, 155, 20, 0.497); */
     }
     p {
         margin:10px;
@@ -77,22 +75,22 @@
         gap: 8px;
         margin-left:3px;
     }
-    .gear {
-        z-index: 0;
-        position:absolute;
-        top:-500px;
-        right:-500px;
-    }
     #paint {
-        margin-left:9px;
+        margin-left:6px;
+        z-index: 999;
     }
     #windfield{
         position:absolute;
         width:100vw;
         height:100vh;
         top:0;
-        z-index: 99;
+        z-index: 7;
         pointer-events:none;
         mix-blend-mode:difference;
+    }
+    button {
+        background-color: gray;
+        border-style:dotted;
+        margin-left:6px;
     }
 </style>
