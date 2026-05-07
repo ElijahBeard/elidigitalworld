@@ -9,6 +9,11 @@ export function move() {
     camerapath.move_camera()
 }
 
+export function onScroll(y: number) {
+    camerapath.scroll_camera(y);
+}
+
+
 </script>
 
 <Canvas>

@@ -72,7 +72,7 @@
 
 <style>
     .box {
-        width:40px;
+        width:60px;
         height:40px;
         margin:1px;
         border:3px;

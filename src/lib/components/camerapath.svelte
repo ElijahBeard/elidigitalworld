@@ -48,4 +48,30 @@ export function move_camera () {
         })
     }
 }
+
+export function scroll_camera(scrollY: number) {
+    const t = Math.min(scrollY / 1000, 1);
+
+    const x = 37 - t * 27;
+    const y = 35 - t * 10;
+    const z = 22 - t * 12;
+
+    gsap.to(pos, {
+        x, y, z,
+        duration: 0.6,
+        onUpdate: () => {
+            camera.current.position.copy(pos);
+        }
+    });
+
+    gsap.to(rot, {
+        x: -0.8,
+        y: 0.8 + t * 0.3,
+        z: 0.7 - t * 0.5,
+        duration: 0.6,
+        onUpdate: () => {
+            camera.current.rotation.copy(rot);
+        }
+    });
+}
 </script>

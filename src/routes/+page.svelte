@@ -9,7 +9,7 @@
     let gear!:Gear
     // Nav
     import Box from '$lib/components/box.svelte';
-    let boxes = ["blog","xtel","98n","294",'im',"sfaf"]
+    let boxes = ["blog","xtel","pmdls","portfolio",'im',"sfaf"]
     // Windfield 3D
     import Windfield from '$lib/components/windfield.svelte';
     let windfield!:Windfield
@@ -26,17 +26,18 @@
 <svelte:window bind:innerWidth={width} />
 <div id="windfield"><Windfield bind:this={windfield}/></div>
 <main style="--accent:{page.data.accent}; --bg:{page.data.bg};">
+    <h1 id="title" style="font-family:block-logo;{page.data.accent};">{mobile ? "ED W0rld" : "ELi DIGITAL W0RLD"}</h1>
+    <div class="welcome" style="width:70vw;">
+        <!-- <button on:click={() => {windfield.move();gear.move_gear()}}>PROJECTS</button> -->
+    </div>
+    <h2 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">PROJECTS:</h2>
     <div class="stack">
         {#each boxes as content}
             <Box {content}/>
         {/each}
     </div>
-    <h1 id="title" style="font-family:block-logo;{page.data.accent};">{mobile ? "ED W0rld" : "ELi DIGITAL W0RLD"}</h1>
-    <div class="welcome" style="width:70vw;">
-        <button on:click={() => {windfield.move();gear.move_gear()}}>Move</button>
-    </div>
     <div id="paint">
-        <Paint/>
+        <!-- <Paint/> -->
     </div>
 </main>
 <!-- <Gear bind:this={gear}/> -->
@@ -69,11 +70,12 @@
     }
     .stack {
         margin-bottom:10px;
-        z-index: 10;
+        z-index: 99;
         display: flex;
         flex-wrap:wrap;
         gap: 8px;
         margin-left:3px;
+        mix-blend-mode: difference;
     }
     #paint {
         margin-left:6px;

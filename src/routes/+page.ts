@@ -1,7 +1,7 @@
 export function load() {
 	return {
 		bodystyle: 'bg-default',
-		accent:'rgba(31, 80, 5, 0.5);',
-		bg:'rgba(243, 251, 248, 0.83);'
+		accent:'rgba(6, 4, 48, 0.96);',
+		bg:'rgba(225, 236, 232, 0.83);'
 	};
 }
