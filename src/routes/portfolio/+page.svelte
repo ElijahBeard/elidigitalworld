@@ -1,17 +1,10 @@
 <script lang="ts">
     import { onMount } from 'svelte';
 	import { page } from '$app/state';
-    import '../app.css';
 
-    // Components
-    import Paint from '$lib/components/paint.svelte';
-    import Gear from '$lib/components/gear.svelte';
-    let gear!:Gear
-    // Nav
-    import Box from '$lib/components/box.svelte';
-    let boxes = ["blog","xtel","pmdls","portfolio",'im',"sfaf"]
-    // Windfield 3D
+    import Projectcard from './projectcard.svelte';
     import Windfield from '$lib/components/windfield.svelte';
+
     let windfield!:Windfield
     
     // Reactive resizing
@@ -21,28 +14,41 @@
     onMount(() => {
         width = window.innerWidth;
     });
+
+    let scrollY = 0;
+
+    function handleScroll(e: Event) {
+        scrollY = (e.target as HTMLElement).scrollTop;
+        windfield?.onScroll(scrollY);
+    }
+
+    import { projects } from './projects'
+    
 </script>
 
 <svelte:window bind:innerWidth={width} />
 <div id="windfield"><Windfield bind:this={windfield}/></div>
-<main style="--accent:{page.data.accent}; --bg:{page.data.bg};">
-    <h1 id="title" style="font-family:block-logo;{page.data.accent};">{mobile ? "ED W0rld" : "ELi DIGITAL W0RLD"}</h1>
+<main
+    on:scroll={handleScroll}
+    style="--accent:{page.data.accent}; --bg:{page.data.bg};"
+>
+    <h1 id="title" style="font-family:block-logo;{page.data.accent};">{mobile ? "PRTF0LIO" : "PORTF0LIO"}</h1>
     <div class="welcome" style="width:70vw;">
-        <!-- <button on:click={() => {windfield.move();gear.move_gear()}}>PROJECTS</button> -->
+        <!-- <button on:click={() => {windfield.move();}}>PROJECTS</button> -->
     </div>
-    <h2 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">PROJECTS:</h2>
-    <div class="stack">
-        {#each boxes as content}
-            <Box {content}/>
-        {/each}
-    </div>
-    <div id="paint">
-        <!-- <Paint/> -->
-    </div>
+    {#each projects as project}
+        <Projectcard
+            title={project.title}
+            link={project.link}
+            iframe={project.iframe}
+            image={project.image}
+            description={project.description}
+        />
+    {/each}
 </main>
-<!-- <Gear bind:this={gear}/> -->
 <style>
     main {
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         position:absolute;
         top:0;
         z-index: 4;
@@ -51,13 +57,15 @@
         width:100vw;
         background-color: var(--bg);
         height:100vh;
-        overflow:scroll;
         padding:12px;
+        overflow-y:scroll;
+        overflow-x:hidden;
     }
     #title {
+        align-self: center;
         margin:0;
         padding:0;
-        font-size:53pt;
+        font-size:48pt;
         overflow-wrap: break-word;
         color: var(--accent);
         letter-spacing: 0.05em;
@@ -86,7 +94,7 @@
         width:100vw;
         height:100vh;
         top:0;
-        z-index: 7;
+        z-index: 0;
         pointer-events:none;
         mix-blend-mode:difference;
     }

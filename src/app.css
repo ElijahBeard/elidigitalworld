@@ -5,14 +5,14 @@ body {
 }
 html {
     margin:0;
+    /* filter:invert(); */
     padding:0;
 }
-
 .bg-default {
     font-family:"picto";
     display:flex;
     flex-direction: column;
-	background-color: gray;
+	background-color: rgba(255, 187, 0, 0.022);
     height:100vh;
     overflow:hidden;
 }
@@ -31,13 +31,28 @@ html {
     font-display: swap;
 }
 @font-face {
-    font-family: "pixel-icon";
-    src: url("/fonts/pixelicon.ttf") format("truetype");
+    font-family: "picto";
+    src: url("/fonts/pictochat.ttf") format("truetype");
+    font-display: swap;
+}
+@font-face {
+    font-family: "icons-1";
+    src: url("/fonts/IconBitOne.ttf") format("truetype");
+    font-display: swap;
+}
+@font-face {
+    font-family: "icons-2";
+    src: url("/fonts/IconBitTwo.ttf") format("truetype");
     font-display: swap;
 }
 @font-face {
     font-family: "block";
     src: url("/fonts/block.ttf") format("truetype");
+    font-display: swap;
+}
+@font-face {
+    font-family: "block-logo";
+    src: url("/fonts/block-logo.otf");
     font-display: swap;
 }
 @font-face {

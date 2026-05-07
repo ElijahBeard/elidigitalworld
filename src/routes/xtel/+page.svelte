@@ -3,54 +3,17 @@
     import { onMount } from 'svelte';
     import hljs from 'highlight.js/lib/core';
     import cpp from 'highlight.js/lib/languages/cpp';
-    import 'highlight.js/styles/github.css';  // or any highlight.js theme you like
-
-    async function updateMath() {
-        if (typeof window !== 'undefined' && window.MathJax) {
-            await tick();  // Wait for DOM updates
-            window.MathJax?.typesetPromise?.();  // Trigger MathJax re-render
-        }
-    }
-
+    import 'highlight.js/styles/github.css';
     hljs.registerLanguage('cpp', cpp);
     let code;
-    let audioElement;
-    let videoElement
     onMount(() => {
         if (code) {
         hljs.highlightElement(code);
         }
-
-        if (audioElement) {
-            new window.MediaElementPlayer(audioElement, {
-                features: ['playpause', 'progress', 'current', 'duration', 'volume'],
-                audioVolume: 'horizontal',
-                success: (mediaElement, originalNode, instance) => {
-                    instance.container.classList.add('my-audio-player');
-                }
-            });
-        }
-
-        if (videoElement) {
-            new window.MediaElementPlayer(videoElement, {
-                features: ['playpause', 'progress', 'current', 'duration', 'volume', 'fullscreen'],
-                success: (mediaElement, originalNode, instance) => {
-                    instance.container.classList.add('my-video-player');
-                }
-            });
-        }
-
     });
-
-    $: updateMath();
 </script>
 
 <style>
-    @font-face {
-        font-family: "RomanS";
-        src: url("/RomanS.ttf") format("truetype");
-        font-display: swap;
-    }
     .page {
         max-width: 650px;
         font-family: "RomanS";
@@ -66,12 +29,6 @@
         flex-direction: column;
         justify-content: space-between;
     }
-    /* :global(body) {
-        margin:0;
-        padding:0;
-        border-style:solid;
-        border-color: rgba(0, 0, 0, 0.163);
-    } */
     main {
         display:flex;
         flex-direction: row;
@@ -80,6 +37,7 @@
         margin:0;
         padding:15px;
         background-color:rgb(198, 196, 190);
+        overflow-y:scroll;
     }
     p {
         font-family:monospace;
