@@ -5,10 +5,12 @@
 </script>
 
 <main>
-    <h3>Recipies</h3>
+    <h3>Food</h3>
     <a href="/blog/pattymelt" data-sveltekit-preload-data>patty melt tutorial</a>
     <a href="/blog/springmenu">spring menu</a>
+    <a href="/blog/summermenu">summer menu</a>
     <h3>Misc</h3>
+    <a href="/blog/test">test</a>
     <a href="/blog/whisky" data-sveltekit-preload-data>whisky</a>
     <a href="/blog/personascreenshots" data-sveltekit-preload-data>persona screenshots</a>
 </main>
@@ -23,6 +25,7 @@
         background-color:rgb(245,244,238);
         padding:15px;
         overflow-y:scroll;
+        overflow-x:hidden;
     }
     a {
         padding:5px;
