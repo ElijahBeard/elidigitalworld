@@ -8,6 +8,7 @@ node_modules
 /.svelte-kit
 /build
 
+
 # OS
 .DS_Store
 Thumbs.db
@@ -17,6 +18,12 @@ Thumbs.db
 .env.*
 !.env.example
 !.env.test
+.npmrc
+package-lock.json
+package.json
+svelte.config.js
+tsconfig.json
+vite.config.ts
 
 # Vites
 vite.config.js.timestamp-*
