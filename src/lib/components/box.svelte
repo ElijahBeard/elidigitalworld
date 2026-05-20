@@ -1,12 +1,10 @@
 <script lang="ts">
     import gsap from 'gsap';
-    import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 
     let duration = 0.1
     export let content
-
 
     function grow (event: MouseEvent) {
         const node = event.currentTarget as HTMLElement;
@@ -73,8 +71,8 @@
 <style>
     .box {
         width:60px;
-        height:40px;
-        margin:1px;
+        height:60px;
+        margin:2px;
         border:3px;
         border-color:var(--accent);
         border-style:solid;
@@ -85,6 +83,7 @@
         align-items: center;
         font-family:"picto";
         font-size:20px;
+        border-radius: 15px;
     }
     .box:hover {
         cursor:pointer;

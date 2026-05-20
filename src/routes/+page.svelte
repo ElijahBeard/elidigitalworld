@@ -4,12 +4,15 @@
     import '../app.css';
 
     // Components
+    import Marquee from '$lib/components/marquee.svelte';
+    let marquee_elements = ["ANNOUNCEMENTS","--","NO ANNOUNCEMENTS CURRENTLY","--","SORRY....","--","MORE ANNOUNCEMENTS COMING SOON..."]
+
     import Paint from '$lib/components/paint.svelte';
     import Gear from '$lib/components/gear.svelte';
     let gear!:Gear
     // Nav
     import Box from '$lib/components/box.svelte';
-    let boxes = ["blog","xtel","pmdls","portfolio",'im',"sfaf"]
+    let boxes = ["blog","xtel","store","portfolio"]
     // Windfield 3D
     import Windfield from '$lib/components/windfield.svelte';
     let windfield!:Windfield
@@ -26,11 +29,13 @@
 <svelte:window bind:innerWidth={width} />
 <div id="windfield"><Windfield bind:this={windfield}/></div>
 <main style="--accent:{page.data.accent}; --bg:{page.data.bg};">
+    <div class="marquee">
+        <Marquee fontSize="2rem" {marquee_elements} />
+    </div>
     <h1 id="title" style="font-family:block-logo;{page.data.accent};">{mobile ? "ED W0rld" : "ELi DIGITAL W0RLD"}</h1>
     <div class="welcome" style="width:70vw;">
         <!-- <button on:click={() => {windfield.move();gear.move_gear()}}>PROJECTS</button> -->
     </div>
-    <h2 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">PROJECTS:</h2>
     <div class="stack">
         {#each boxes as content}
             <Box {content}/>
@@ -53,9 +58,16 @@
         height:100vh;
         overflow:scroll;
         padding:12px;
+        overflow-x:hidden;
+    }
+    .marquee{
+        margin-left:-15px;
+        position:absolute;
+        top:0;
     }
     #title {
         margin:0;
+        margin-top:20px;
         padding:0;
         font-size:53pt;
         overflow-wrap: break-word;
