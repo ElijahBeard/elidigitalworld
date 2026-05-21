@@ -2,6 +2,7 @@
     import { onMount } from 'svelte';
 	import { page } from '$app/state';
     import '../app.css';
+    import Bounce from '$lib/components/bounce.svelte';
 
     // Components
     import Marquee from '$lib/components/marquee.svelte';
@@ -12,7 +13,12 @@
     let gear!:Gear
     // Nav
     import Box from '$lib/components/box.svelte';
-    let boxes = ["blog","xtel","store","portfolio"]
+    let boxes = {
+        blog: "/blog",
+        store: "/store",
+        portfolio: "/portfolio"
+    };
+
     // Windfield 3D
     import Windfield from '$lib/components/windfield.svelte';
     let windfield!:Windfield
@@ -25,7 +31,7 @@
         width = window.innerWidth;
     });
 </script>
-
+<Bounce/>
 <svelte:window bind:innerWidth={width} />
 <div id="windfield"><Windfield bind:this={windfield}/></div>
 <main style="--accent:{page.data.accent}; --bg:{page.data.bg};">
@@ -37,9 +43,7 @@
         <!-- <button on:click={() => {windfield.move();gear.move_gear()}}>PROJECTS</button> -->
     </div>
     <div class="stack">
-        {#each boxes as content}
-            <Box {content}/>
-        {/each}
+        <Box {boxes}/>
     </div>
     <div id="paint">
         <!-- <Paint/> -->
@@ -86,8 +90,6 @@
         display: flex;
         flex-wrap:wrap;
         gap: 8px;
-        margin-left:3px;
-        mix-blend-mode: difference;
     }
     #paint {
         margin-left:6px;

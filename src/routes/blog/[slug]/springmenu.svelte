@@ -1,4 +1,4 @@
-<main>
+<main class="blog-post">
     <img id="stamp" src="/blog/springmenu/stevie.png" alt="">
     <h2>Stevie's Hometown Cuisine</h2>
     <p>Spring Menu</p>
