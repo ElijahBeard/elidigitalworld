@@ -1,3 +1,6 @@
+* {
+  touch-action: manipulation;
+}
 body {
     margin:0;
     padding:0;
@@ -20,7 +23,7 @@ html {
     display:flex;
     flex-direction: column;
     align-items:center;
-    background-color:rgb(230, 224, 207);
+    background-color:rgb(226, 226, 226);
     overflow-y:scroll;
     height:100vh;
 }

@@ -5,7 +5,6 @@
 		.split('/')
 		.filter(Boolean)
     )
-    console.log(page.data.bodystyle)
 </script>
 <div class={page.data.bodystyle}>
     <nav>
@@ -25,14 +24,8 @@
 </div>
 
 <style>
-    /* :global(body) {
-        display:flex;
-        flex-direction: column;
-        align-items:center;
-        background-color:rgb(230, 224, 207);
-    } */
     nav{
-        font-family:"monobold";
+        font-family:"monoregular";
         color:black;
         margin:10px;
         padding:15px;
@@ -45,7 +38,9 @@
         display:flex;
         flex-direction: row;
         align-items: center;
-        background-color:rgb(245,244,238);
+        background-color:rgb(253, 253, 253);
+        border-style:dotted;
+        border-color:rgb(169, 169, 169);
     }
     nav a:visited {
         color:blue;

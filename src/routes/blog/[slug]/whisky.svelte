@@ -1,4 +1,8 @@
-<main>
+<script >
+    import "$lib/styles/blog.css"
+</script>
+
+<main class="blog-post">
     <p>Whisky by My Little Airport</p>
     <pre>
     威士忌是個好的東西
@@ -26,52 +30,3 @@
     </pre>
 
 </main>
-
-<style>
-    main {
-        font-family:"monoregular";
-        width:85vw;
-        height:85vh;
-        display:flex;
-        flex-direction: column;
-        background-color:rgb(245,244,238);
-        padding:15px;
-        overflow-y:scroll;
-    }
-    a {
-        padding:5px;
-        border-style:solid;
-        border-left:1px;
-        border-right:0;
-        border-top:0;
-        margin-bottom:4px;
-        border-color:rgb(230, 224, 207);
-    }
-    h1 {
-        margin-top:0;
-    }
-    h3 {
-        margin-bottom:0;
-    }
-    ul {
-        margin:1px;
-    }
-    img {
-        width:50vw;
-        align-self: center;
-    }
-    figure {
-        align-self:center;
-        font-size:9pt;
-        color:gray;
-    }
-    .dua img{
-        object-fit:cover;
-        width:40vw;
-    }
-    .dua {
-        display:flex;
-        justify-content: space-evenly;
-        margin-bottom:5px;
-    }
-</style>
