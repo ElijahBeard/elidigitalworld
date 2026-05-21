@@ -4,7 +4,7 @@
 	import { page } from '$app/state';
 
     let duration = 0.1
-    export let content
+    export let boxes: Record<string, string>;
 
     function grow (event: MouseEvent) {
         const node = event.currentTarget as HTMLElement;
@@ -37,11 +37,12 @@
         document.startViewTransition(() => goto(url));
     };
 
-    const _load = (event:MouseEvent) => {
+    const _load = (event: MouseEvent, url: string) => {
         const node = event.currentTarget as HTMLElement;
         const rect = node.getBoundingClientRect();
+
         gsap.set(node, {
-            position: "fixed",
+            position: 'fixed',
             left: rect.left,
             top: rect.top,
             width: rect.width,
@@ -54,24 +55,36 @@
             top: 0,
             width: window.innerWidth,
             height: window.innerHeight,
-            "background-color":"white",
+            backgroundColor: 'white',
             duration: 0.3,
-            onComplete: () => { navigate(`/${content}`); }
+            onComplete: () => navigate(url)
         });
-    }
+    };
 </script>
 
-<button class="box" style="view-transition-name:${content};--accent:{page.data.accent}; --bg:{page.data.bg};"
-        on:mouseenter={grow} 
-        on:mouseleave={shrink}
-        on:click={_load}>
-    {content}
-</button>
+<div class="container">
+    {#each Object.entries(boxes) as [label, link]}
+        <button
+            class="box"
+            style="
+                view-transition-name:{label};
+                --accent:{page.data.accent};
+                --bg:{page.data.bg};
+            "
+            on:mouseenter={grow}
+            on:mouseleave={shrink}
+            on:click={(e) => _load(e, link)}
+        >
+            {label}
+        </button>
+    {/each}
+</div>
+
 
 <style>
     .box {
-        width:60px;
-        height:60px;
+        width:80px;
+        height:40px;
         margin:2px;
         border:3px;
         border-color:var(--accent);
@@ -83,7 +96,6 @@
         align-items: center;
         font-family:"picto";
         font-size:20px;
-        border-radius: 15px;
     }
     .box:hover {
         cursor:pointer;

@@ -6,6 +6,11 @@
     import Windfield from '$lib/components/windfield.svelte';
 
     let windfield!:Windfield
+
+    import Box from '$lib/components/box.svelte';
+    let boxes = {
+        home: "/",
+    };
     
     // Reactive resizing
     let width = 0
@@ -32,7 +37,10 @@
     on:scroll={handleScroll}
     style="--accent:{page.data.accent}; --bg:{page.data.bg};"
 >
-    <h1 id="title" style="font-family:block-logo;{page.data.accent};">{mobile ? "PRTF0LIO" : "PORTF0LIO"}</h1>
+    <span id="title">
+        <h1 id="title" style="font-family:block-logo;{page.data.accent};">{mobile ? "PRTF0LIO" : "PORTF0LIO"}</h1>
+        <Box {boxes}/>
+    </span>
     <div class="welcome" style="width:70vw;">
         <!-- <button on:click={() => {windfield.move();}}>PROJECTS</button> -->
     </div>
@@ -70,6 +78,10 @@
         color: var(--accent);
         letter-spacing: 0.05em;
         word-spacing: -29px;
+        display:flex;
+        flex-direction:column;
+        justify-content: center;
+        align-items: center;
     }
     p {
         margin:10px;
